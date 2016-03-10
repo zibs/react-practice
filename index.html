@@ -6,19 +6,31 @@
   <script src = 'react.js'></script>
   <script src = 'react-dom.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+// div {
+  // display: inline-block;
+// }
+</style>
 </head>
 <body>
   <div id="container"></div>
   <div id = "container-1"></div>
   <div id = "container-2"></div>
 
+  <div id = "box1"></div>
+  <div id = "box2"></div>
+  <div id = "box3"></div>
+  <div id = "box4"></div>
+  <div id = "box5"></div>
+
     <script type = "text/babel">
+
       var HelloWorld = React.createClass({
         render: function() {
           var styles = {color: "red", fontSize: "20px"};
           return <div style={styles}>Hello World!
                    <p>Hello React</p>
-                  </div>;
+                 </div>;
         }
       });
       var Greeting = React.createClass({
@@ -28,9 +40,27 @@
         }
       });
 
+      var Box = React.createClass({
+        render: function() {
+          var styles = { backgroundColor: this.props.color, height: this.props.height, width: this.props.width, borderRadius: this.props.borderRadius, display: this.props.display, float: "left" }
+          return <div style={styles}></div>
+        }
+      })
+
       ReactDOM.render(<HelloWorld />, document.getElementById('container'))
       ReactDOM.render(<Greeting name="Jhon"/>, document.getElementById('container-1'))
       ReactDOM.render(<Greeting name="Mray"/>, document.getElementById('container-2'))
+
+      ReactDOM.render(<Box color="green" height="50px" width="50px" display="inlineBlock"/>, document.getElementById('box1'))
+
+      ReactDOM.render(<Box color="red" height="50px" width="50px" display="inlineBlock" borderRadius="30px"/>, document.getElementById('box2'))
+
+      ReactDOM.render(<Box color="blue" height="50px" width="50px" display="inlineBlock" borderRadius="10px"/>, document.getElementById('box3'))
+
+      ReactDOM.render(<Box color="rgba(147, 47, 184, 0.78)" height="100px" width="50px" borderRadius="100%" display="inlineBlock"/>, document.getElementById('box4'))
+
+      ReactDOM.render(<Box color="rgba(55, 240, 190, 0.78)" height="200px" width="150px" borderRadius="50%" display="inlineBlock"/>, document.getElementById('box5'))
+
     </script>
 </body>
 </html>

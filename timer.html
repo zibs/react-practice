@@ -22,11 +22,11 @@
       },
       tick: function() {
         var now = new Date();
-        this.setState({ currentTime: now.toString()});
+        this.setState({currentTime: now.toString()});
       },
       render: function() {
         var styles = {width: "300px", height: "100px", backgroundColor: "rgba(233, 170, 33, 0.72)"};
-        return <p> {this.state.currentTime} </p>
+        return <div style={styles}><p>{this.state.currentTime} </p></div>
       }
     });
     ReactDOM.render(<Timer />, document.getElementById('container'));

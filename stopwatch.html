@@ -12,6 +12,7 @@
   <div id="container"></div>
 
   <script type ="text/babel">
+
     var StopWatch = React.createClass({
       getInitialState: function() {
         return {timer: 0};
@@ -22,7 +23,11 @@
       stopTime: function(){
         clearInterval(this.interval);
       },
+      componentWillUnmount: function() {
+        clearInterval(this.interval);
+      },
       startTime: function() {
+        this.componentWillUnmount();
         this.componentDidMount();
       },
       tick: function() {

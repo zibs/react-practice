@@ -18,22 +18,42 @@
     <script type = "text/babel">
 
       var Circle = React.createClass({
+        handleClick: function(){
+          // alert("clicked " + this.props.color + " circle");
+          this.props.notifyParent();
+          this.props.addList(this.props.color);
+        },
         render: function(){
           var styles = {backgroundColor: this.props.color, float: "left", borderRadius: "100%", height: "40px", width: "40px"  }
-          return <div style={styles}></div>
+          return <div style={styles} onClick={this.handleClick}></div>
         }
       });
 
       var BigBox = React.createClass({
+        getInitialState: function() {
+          return { clickCount: 0, listCircles: [] };
+        },
         circles: function() {
           return this.props.circles.map(function(color, index) {
-              return <Circle color={color} key={index} />;
-          });
+              return <Circle color={color} key={index} notifyParent={this.incrementCount} addList={this.addList} />;
+          }.bind(this));
+        },
+        addList: function(color) {
+          this.setState({listCircles: this.state.listCircles.concat(color)})
+        },
+        incrementCount: function() {
+          this.setState({clickCount: this.state.clickCount + 1});
+        },
+        handleClick: function() {
+          alert("cleardkced shape");
         },
         render: function() {
           return <div style={ {backgroundColor: this.props.bg, height: "400px", width: "400px"} }>
             <ul>
               {this.circles()}
+              <br />
+              <p>{this.state.listCircles.join(" ")}</p>
+              You clicked on: {this.state.clickCount} circle(s)
             </ul>
            </div>
         }

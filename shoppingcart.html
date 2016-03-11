@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react</title>
+  <script src = 'react.js'></script>
+  <script src = 'react-dom.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+  <div id="container"></div>
+  <div id="container2"></div>
+
+    <script type = "text/babel">
+
+      var Product = React.createClass({
+        getInitialState: function() {
+          return {added: false, bg: ""};
+        },
+        handleClick: function(){
+          // alert("clicked " + this.props.color + " circle");
+          if (this.state.added  == true) {
+            this.props.addTotal(-this.props.price);
+            this.setState({added: false, bg: ""})
+          }
+          else {
+            this.props.addTotal(this.props.price);
+            this.setState({added: true, bg: "white"})
+          }
+        },
+        render: function(){
+          var styles = { backgroundColor: this.state.bg }
+          return <div style={styles} onClick={this.handleClick}>
+          <p> {this.props.name} - {this.props.price}</p></div>
+        }
+      });
+
+      var Cart = React.createClass({
+        getInitialState: function() {
+          return { total: 0 };
+        },
+        products: function() {
+          return this.props.products.map(function(product, index) {
+              return <Product name={product.name} price={product.price} key={index} addTotal={this.addTotal} />;
+          }.bind(this));
+        },
+        addTotal: function(price) {
+          this.setState({total: this.state.total + price })
+        },
+        render: function() {
+          return <div style={ {backgroundColor: this.props.bg, height: "400px", width: "400px"} }>
+            <ul>
+              {this.products()}
+              <br />
+              <p>total: {this.state.total}</p>
+            </ul>
+           </div>
+        }
+      });
+
+      ReactDOM.render(<Cart bg="rgb(195, 41, 41)" products={[{name: "Book", price: 20}, {name: "Poem", price: 30}, {name: "Essay", price: 50}]}/>, document.getElementById('container'))
+
+    </script>
+
+</body>
+</html>

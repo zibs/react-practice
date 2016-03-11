@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react</title>
+  <script src = 'react.js'></script>
+  <script src = 'react-dom.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+  <div id="container"></div>
+    <script type = "text/babel">
+      var SearchForm = React.createClass({
+          getInitialState: function(){
+            return {filteredNames: this.props.names}
+          },
+          filterIt: function(){
+            var userInput = this.refs.userInput.value
+            this.setState({filteredNames: this.returnNames(userInput, this.props.names)})
+          },
+          returnNames: function(searchterm, namesArr) {
+            var result = []
+              for (var i = 0; i < namesArr.length; i++) {
+              if(namesArr[i].toLowerCase().includes(searchterm.toLowerCase())){
+                result.push(namesArr[i])
+              }
+            }
+            return result;
+          },
+          render: function(){
+          return <div>
+                <input type = 'text' ref="userInput" onChange={this.filterIt}/>
+                <ul>
+                  {this.state.filteredNames.map(function(name, index){
+                      return <li key={index}>{name}</li>;
+                    })}
+                </ul>
+                </div>;
+            }
+        });
+        ReactDOM.render(<SearchForm names={["eli", "beli", "meli", "veli"]} />, document.getElementById('container'));
+    </script>
+
+</body>
+</html>

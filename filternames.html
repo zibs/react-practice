@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react</title>
+  <script src = 'react.js'></script>
+  <script src = 'react-dom.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+  <div id="container"></div>
+    <script type = "text/babel">
+      var Name = React.createClass({
+        render: function(){
+          return <li>{this.props.name}</li>
+        }
+      });
+      var SearchForm = React.createClass({
+          getInitialState: function(){
+            return {db: this.props.names}
+          },
+          names: function(db){
+            return this.props.names.map(function(name, index){
+              return <Name name={name} key={index} />
+            });
+          },
+          filterIt: function(){
+            var searchFor = this.refs.userInput.value;
+            this.setState({db:"hm"
+            })
+          },
+          render: function(){
+          return <div>
+                <input type = 'text' ref="userInput" onChange={this.filterIt}/>
+                <ul>
+                  {this.names(this.state.db)}
+                </ul>
+              </div>;
+            }
+        });
+        ReactDOM.render(<SearchForm names={["eli", "beli", "meli", "veli"]} />, document.getElementById('container'));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react</title>
+  <script src = 'react.js'></script>
+  <script src = 'react-dom.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+  <div id="container"></div>
+
+
+    <script type = "text/babel">
+      var Formee = React.createClass({
+        getInitialState: function() {
+          return {userText: ""};
+        },
+        upcaseIt: function(){
+          var userInput = this.refs.userInput.value;
+          this.setState({userText: userInput.toUpperCase()});
+        },
+        render: function(){
+        return <div>
+                <input type = 'text' ref="userInput" onChange={this.upcaseIt}/>
+                <input type = 'checkbox' ref="userInput" onChange={this.upcaseIt}/> hey
+                <div>{this.state.userText}</div>
+              </div>;
+              }
+        });
+
+        ReactDOM.render(<Formee />, document.getElementById('container'));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react</title>
+  <script src = 'react.js'></script>
+  <script src = 'react-dom.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+
+  <div id="container"></div>
+    <script type = "text/babel">
+      var Task = React.createClass({
+        getInitialState: function(){
+          return {checked: false, strike: ""};
+        },
+        checkIt: function(){
+          if (this.state.checked) {
+            this.setState({checked: false, strike: ""})
+          } else  {
+            this.setState({checked: true, strike: "line-through"})
+          }
+        },
+        render: function(){
+          var styles = {textDecoration: this.state.strike}
+          return <div>
+                  <input type = 'checkbox' ref="check" onChange={this.checkIt} />
+                  <span style={styles}>{this.props.num}</span>
+                  </div>
+        }
+      });
+      var Tasks = React.createClass({
+        tasks: function() {
+          return this.props.tasks.map(function(task, index) {
+            return <Task num={task} key={index}/>
+          });
+        },
+        render: function(){
+        return <div>
+                {this.tasks()}
+              </div>;
+            }
+        });
+        ReactDOM.render(<Tasks tasks={["task 1", "task 2", "task 3"]} />, document.getElementById('container'));
+    </script>
+
+</body>
+</html>
